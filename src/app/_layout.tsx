@@ -1,0 +1,46 @@
+import {
+	Inter_400Regular,
+	Inter_700Bold,
+	useFonts,
+} from "@expo-google-fonts/inter";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
+
+import "../assets/global.css";
+
+SplashScreen.preventAutoHideAsync();
+
+SplashScreen.setOptions({
+	fade: true,
+	duration: 500,
+});
+
+export default function RootLayout() {
+	const [loaded, error] = useFonts({
+		Inter_400Regular,
+		Inter_700Bold,
+	});
+
+	useEffect(() => {
+		if (loaded || error) {
+			SplashScreen.hideAsync();
+		}
+	}, [loaded, error]);
+
+	if (!loaded && !error) {
+		return null;
+	}
+
+	return (
+		<>
+			<Stack
+				screenOptions={{
+					headerShown: false,
+				}}
+			/>
+			<StatusBar style="light" animated />
+		</>
+	);
+}
