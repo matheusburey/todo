@@ -9,6 +9,7 @@ module.exports = {
 			fontFamily: {
 				title: ["Inter_700Bold"],
 				body: ["Inter_400Regular"],
+				button: ["Inter_600SemiBold"],
 			},
 			colors: {
 				purple: {
@@ -27,9 +28,11 @@ module.exports = {
 				},
 				red: {
 					600: "#DF1545",
+					700: "#A91031",
 				},
 				green: {
 					600: "#168821",
+					700: "#0B5A11",
 				},
 			},
 		},
