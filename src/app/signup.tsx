@@ -5,6 +5,7 @@ import { ScrollView, Text, View } from "react-native";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Logo from "../assets/images/logo.png";
+import Icons from "@/components/ui/icons";
 
 export default function HomeScreen() {
 	return (
@@ -15,19 +16,33 @@ export default function HomeScreen() {
 				className="flex-1 px-5 pb-8 pt-14"
 			>
 				<View>
+					<View className="flex-row items-center justify-between">
 					<Image source={Logo} style={{ width: 150, height: 100 }} />
+					<Button
+						variant="secondary"
+						size="md"
+						onPress={() => router.back()}
+					>
+						<Icons name="arrow-left" size={20} color="#FFFFFF" />
+					</Button>
+					</View>
 					<Text className="font-title mt-8 text-4xl text-white">
-						O jeito fácil
+						Agilidade e Simplicidade
 					</Text>
-					<Text className="mt-2 font-body text-base text-white">
-						flexível e atrativo de gerenciar{" "}
-						<Text className="font-bold">seus projetos</Text>
+					<Text className="mt-4 font-body text-base text-white">
+						Agilize seus projetos com rapidez e muita performance
 					</Text>
 				</View>
 				<View className="border-2 gap-4 border-gray-50 p-4 pb-10 rounded-xl my-5 bg-white">
 					<Text className="font-title mt-8 mb-4 text-4xl">
-						Bem vindo de volta!
+						Crie sua conta
 					</Text>
+					<Input
+						iconName="user"
+						label="Nome"
+						placeholder="Digite seu nome"
+						help="Ex: João Silva"
+					/>
 					<Input
 						iconName="envelope"
 						label="Email"
@@ -40,16 +55,14 @@ export default function HomeScreen() {
 						placeholder="Digite sua senha"
 						help="Digite uma senha forte"
 					/>
-					<Button variant="secondary" onPress={() => console.log("Entrar")}>
+					<Input
+						iconName="lock"
+						label="Confirmação de senha"
+						placeholder="Confirme sua senha"
+						help="Digite sua senha novamente"
+					/>
+					<Button onPress={() => console.log("Entrar")}>
 						Entrar
-					</Button>
-
-					<Text className="font-body text-center mt-4 text-base text-gray-400">
-						Ainda não possui uma conta?
-					</Text>
-
-					<Button variant="outline" onPress={() => router.push("/signup")}>
-						Cadastrar
 					</Button>
 					<Text
 						className="font-body underline text-center mt-2 text-base text-gray-500"
