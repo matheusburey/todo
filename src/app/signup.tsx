@@ -3,9 +3,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
 import Button from "@/components/ui/button";
+import Icons from "@/components/ui/icons";
 import Input from "@/components/ui/input";
 import Logo from "../assets/images/logo.png";
-import Icons from "@/components/ui/icons";
 
 export default function HomeScreen() {
 	return (
@@ -17,14 +17,10 @@ export default function HomeScreen() {
 			>
 				<View>
 					<View className="flex-row items-center justify-between">
-					<Image source={Logo} style={{ width: 150, height: 100 }} />
-					<Button
-						variant="secondary"
-						size="md"
-						onPress={() => router.back()}
-					>
-						<Icons name="arrow-left" size={20} color="#FFFFFF" />
-					</Button>
+						<Image source={Logo} style={{ width: 150, height: 100 }} />
+						<Button variant="secondary" size="md" onPress={() => router.back()}>
+							<Icons name="arrow-left" size={20} color="#FFFFFF" />
+						</Button>
 					</View>
 					<Text className="font-title mt-8 text-4xl text-white">
 						Agilidade e Simplicidade
@@ -33,10 +29,8 @@ export default function HomeScreen() {
 						Agilize seus projetos com rapidez e muita performance
 					</Text>
 				</View>
-				<View className="border-2 gap-4 border-gray-50 p-4 pb-10 rounded-xl my-5 bg-white">
-					<Text className="font-title mt-8 mb-4 text-4xl">
-						Crie sua conta
-					</Text>
+				<View className="border-2 gap-4 border-gray-50 p-4 pb-5 rounded-xl mt-5 bg-white">
+					<Text className="font-title mt-8 mb-4 text-4xl">Crie sua conta</Text>
 					<Input
 						iconName="user"
 						label="Nome"
@@ -50,20 +44,20 @@ export default function HomeScreen() {
 						help="Ex: joao@email.com"
 					/>
 					<Input
+						secureTextEntry
 						iconName="lock"
 						label="Senha"
 						placeholder="Digite sua senha"
 						help="Digite uma senha forte"
 					/>
 					<Input
+						secureTextEntry
 						iconName="lock"
 						label="Confirmação de senha"
 						placeholder="Confirme sua senha"
 						help="Digite sua senha novamente"
 					/>
-					<Button onPress={() => console.log("Entrar")}>
-						Entrar
-					</Button>
+					<Button onPress={() => console.log("Entrar")}>Criar conta</Button>
 					<Text
 						className="font-body underline text-center mt-2 text-base text-gray-500"
 						onPress={() => console.log("Continuar como visitante")}

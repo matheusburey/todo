@@ -1,12 +1,36 @@
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
+import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
+import { useAuth } from "@/hooks/useAuth";
 import Logo from "../assets/images/logo.png";
 
 export default function HomeScreen() {
+	const { user, signIn } = useAuth();
+
+	const [loading, setLoading] = useState(false);
+
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+
+	const handleSignIn = async () => {
+		setLoading(true);
+		const successResponse = await signIn({ email, password });
+		if (successResponse) {
+			router.push("/dashboard");
+		}
+		setLoading(false);
+	};
+
+	useEffect(() => {
+		if (user?.accessToken) {
+			router.push("/dashboard");
+		}
+	}, [user]);
+
 	return (
 		<ScrollView className="flex-1 bg-white">
 			<LinearGradient
@@ -24,23 +48,33 @@ export default function HomeScreen() {
 						<Text className="font-bold">seus projetos</Text>
 					</Text>
 				</View>
-				<View className="border-2 gap-4 border-gray-50 p-4 pb-10 rounded-xl my-5 bg-white">
+				<View className="border-2 gap-4 border-gray-50 p-4 pb-5 rounded-xl mt-5 bg-white">
 					<Text className="font-title mt-8 mb-4 text-4xl">
 						Bem vindo de volta!
 					</Text>
 					<Input
+						value={email}
+						onChangeText={setEmail}
 						iconName="envelope"
 						label="Email"
 						placeholder="Digite seu email"
 						help="Ex: joao@email.com"
 					/>
 					<Input
+						value={password}
+						onChangeText={setPassword}
 						iconName="lock"
 						label="Senha"
+						secureTextEntry
 						placeholder="Digite sua senha"
 						help="Digite uma senha forte"
 					/>
-					<Button variant="secondary" onPress={() => console.log("Entrar")}>
+					<Button
+						variant="secondary"
+						onPress={handleSignIn}
+						disabled={loading}
+						loading={loading}
+					>
 						Entrar
 					</Button>
 
@@ -53,7 +87,7 @@ export default function HomeScreen() {
 					</Button>
 					<Text
 						className="font-body underline text-center mt-2 text-base text-gray-500"
-						onPress={() => console.log("Continuar como visitante")}
+						onPress={() => router.push("/dashboard")}
 					>
 						Continuar como visitante
 					</Text>
