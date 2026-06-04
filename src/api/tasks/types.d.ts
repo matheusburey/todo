@@ -1,21 +1,23 @@
 export interface ITask {
-  id: number;
-  title: string;
-  description: string;
-  userId: number;
-  completed: boolean;
+	id: string;
+	title: string;
+	description: string;
+	userId: string;
+	completed: boolean;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export interface IResponseCreateTask {
-  detail: {
-    status: string;
-  };
-  data: ITask;
+	detail: {
+		status: string;
+	};
+	data: ITask;
 }
 
 export interface IResponseGetTasks {
-  detail: {
-    status: string;
-  };
-  data?: ITask[];
+	detail: {
+		status: string;
+	};
+	data?: ITask[];
 }
