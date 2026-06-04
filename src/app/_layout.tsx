@@ -9,6 +9,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
+import { Providers } from "@/providers";
+
 import "../assets/global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -36,13 +38,13 @@ export default function RootLayout() {
 	}
 
 	return (
-		<>
+		<Providers>
 			<Stack
 				screenOptions={{
 					headerShown: false,
 				}}
 			/>
 			<StatusBar style="light" animated />
-		</>
+		</Providers>
 	);
 }
