@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { Text, TextInput, type TextInputProps, View } from "react-native";
+import {
+	Text,
+	TextInput,
+	type TextInputProps,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import Icons, { type IconNames } from "./icons";
 
 const inputVariations = {
@@ -16,17 +22,23 @@ interface InputProps extends TextInputProps {
 	help?: string;
 	iconName?: IconNames;
 	error?: string | null;
+	clearable?: boolean;
+	clearableOnPress?: () => void;
 }
 
 export default function Input({
 	label,
 	help,
 	iconName,
+	secureTextEntry,
 	error,
 	value,
+	clearable,
+	clearableOnPress,
 	...rest
 }: InputProps) {
 	const [variation, setVariation] = useState<KeysVariation>("default");
+	const [showPassword, setShowPassword] = useState(secureTextEntry);
 
 	const handleInputFocus = useCallback(() => {
 		if (!error) {
@@ -42,6 +54,12 @@ export default function Input({
 		}
 	}, [error, value]);
 
+	const handleClear = useCallback(() => {
+		if (clearableOnPress) {
+			clearableOnPress();
+		}
+	}, [clearableOnPress]);
+
 	useEffect(() => {
 		if (error) {
 			setVariation("error");
@@ -49,7 +67,7 @@ export default function Input({
 	}, [error]);
 
 	return (
-		<View className="gap-2">
+		<View className="gap-2 flex-1">
 			{label && (
 				<Text className="font-body text-sm text-gray-400">{label}</Text>
 			)}
@@ -57,15 +75,26 @@ export default function Input({
 				style={{ borderColor: inputVariations[variation] }}
 				className="bg-gray-50 flex-row items-center gap-2 border-2 rounded-lg px-3"
 			>
-				{iconName && <Icons name={iconName} size={18} color="#9E9EA7" />}
+				{iconName && <Icons name={iconName} size={18} />}
 				<TextInput
 					value={value}
 					onBlur={handleInputBlur}
 					onFocus={handleInputFocus}
-					className="w-11/12 h-14 rounded-lg text-base"
+					secureTextEntry={showPassword}
+					className="w-[calc(100%-25px)] h-14 text-lg border-0 font-body focus:outline-none"
 					placeholderTextColor="#9E9EA7"
 					{...rest}
 				/>
+				{secureTextEntry && (
+					<TouchableOpacity onPress={() => setShowPassword((prev) => !prev)}>
+						<Icons name={showPassword ? "eye-slash" : "eye"} size={18} />
+					</TouchableOpacity>
+				)}
+				{clearable && value && (
+					<TouchableOpacity className="" onPress={handleClear}>
+						<Icons name="times" size={18} />
+					</TouchableOpacity>
+				)}
 			</View>
 			{error ? (
 				<Text className="font-body text-xs text-red-500">{error}</Text>

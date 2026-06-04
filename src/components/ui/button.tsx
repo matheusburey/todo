@@ -6,7 +6,7 @@ import {
 } from "react-native";
 
 type Variant = "default" | "secondary" | "outline" | "danger";
-type Size = "xl" | "md" | "sm";
+type Size = "xl" | "lg" | "md" | "sm";
 
 interface ButtonProps extends TouchableOpacityProps {
 	text?: string;
@@ -39,8 +39,9 @@ const variantsColors = {
 };
 
 const variantsSize = {
-	xl: "h-16",
-	md: "h-16 w-16",
+	xl: "h-16 px-6",
+	lg: "h-16 w-16",
+	md: "h-10 w-12",
 	sm: "h-8 w-8",
 };
 
@@ -59,7 +60,7 @@ export default function Button({
 		<TouchableOpacity
 			activeOpacity={0.7}
 			disabled={disabled || loading}
-			className={`${s.container} ${sz} justify-center rounded-lg`}
+			className={`${s.container} ${sz} flex items-center justify-center rounded-lg`}
 			{...rest}
 		>
 			{loading ? (

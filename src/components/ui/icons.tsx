@@ -8,6 +8,6 @@ interface IconsProps {
 	color?: string;
 }
 
-export default function Icons({ ...rest }: IconsProps) {
-	return <FontAwesome5 {...rest} />;
+export default function Icons({ color = "#9E9EA7", ...rest }: IconsProps) {
+	return <FontAwesome5 color={color} {...rest} />;
 }
